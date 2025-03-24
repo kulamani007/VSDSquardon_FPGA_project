@@ -46,7 +46,7 @@ cd nextpnr && cmake . && make && sudo make install
 # Install openFPGALoader  
 sudo apt install openfpgaloader
 
-## repository structure
+### repository structure
 VSDSquadron_FPGA_Project/  
 ├── src/  
 │   ├── top.v            # Verilog code for LED control  
@@ -54,7 +54,7 @@ VSDSquadron_FPGA_Project/
 ├── Makefile             # Build and flash automation  
 └── README.md            # This documentation
 
-## Build & Flash Instructions
+### Build & Flash Instructions
 # Step 1: Build the Project
 make clean    # Remove previous builds  
 make build    # Synthesize and compile the design
@@ -72,8 +72,8 @@ make flash    # Program the FPGA board
 # Expected Output:
 Blue and green LEDs blink alternately at ~1 Hz.
 
-## Pin Mapping & Hardware Connections
-### FPGA Pinout
+### Pin Mapping & Hardware Connections
+## FPGA Pinout
 Signal	        FPGA Pin	Board Component	   Description
 led_rel_id_blue	  40	Blue LED	             RGB LED (Blue Channel)
 led_green	        41	Green LED	             RGB LED (Green Channel)
@@ -168,8 +168,8 @@ testwire duplicates MSB for oscilloscope verification
 
 Optional but useful for timing validation
 
-## PCF File Details
-### Purpose
+### PCF File Details
+## Purpose
 The constraints.pcf file maps Verilog signals to physical FPGA pins.
 ### Key Entries
 set_io led_rel_id_blue 40  # Blue LED  
