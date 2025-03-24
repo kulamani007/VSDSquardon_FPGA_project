@@ -1,6 +1,4 @@
-# VSDSquadron FPGA Mini Board: RGB LED Blink Project  
-**GitHub Repo**: [Your Repo Link]  
-
+# VSDSquadron FPGA Mini Board: RGB LED Blink Project
 ---
 
 ## Table of Contents  
