@@ -30,7 +30,7 @@ This project is useful for embedded system developers and FPGA designers who nee
 ## Design Documentation
 
 ### Block Diagram  
-![Block Diagram](images/block_diagram.png)  
+[![Block Diagram](images/block_diagram.png)  ](https://github.com/kulamani007/VSDSquardon_FPGA_project/issues/2)
 The UART transmitter module consists of:
 - **Baud Rate Generator**: Divides the system clock to produce the UART clock.
 - **Finite State Machine (FSM)**: Manages transmission states (IDLE, START, DATA, PARITY, STOP).
@@ -38,7 +38,7 @@ The UART transmitter module consists of:
 - **Parity Generator**: Optional parity bit calculation (even/odd).
 
 ### Circuit Diagram  
-![Circuit Diagram](images/circuit_diagram.png)  
+[![Circuit Diagram](images/circuit_diagram.png)](https://github.com/kulamani007/VSDSquardon_FPGA_project/issues/2)  
 FPGA connections:
 - **FPGA TX Pin** → Connected to the RX pin of the receiving device (e.g., USB-UART converter).
 - **Voltage Level Matching**: Use resistors or a level shifter if interfacing with 3.3V/5V devices.
