@@ -1,29 +1,29 @@
 # UART Transmitter (uart_tx) Project Documentation
 
 ## Overview
-This project implements a **UART (Universal Asynchronous Receiver-Transmitter) transmitter** on an FPGA, enabling serial communication with devices such as PCs or microcontrollers. The transmitter is designed to be efficient and flexible, featuring:
-- **Configurable baud rate** (default: 9600 bps)
-- **8-bit data transmission**
-- **Optional parity bit support** (Even/Odd)
-- **Single stop bit (1-bit)**
-- **State Machine-based design** for accurate transmission control
+This project implements a **UART (Universal Asynchronous Receiver-Transmitter) transmitter** on an FPGA, enabling serial communication with devices like PCs or microcontrollers. It features:
+- **Configurable Baud Rate**
+- **8-bit Data Transmission**
+- **Optional Parity Bit Support**
+- **1 Stop Bit**
 
-UART is commonly used for low-speed serial communication between digital devices, making this project crucial for debugging, monitoring, and data transmission applications.
+This project is useful for embedded system developers and FPGA designers who need a reliable UART interface.
 
 ---
 
 ## Table of Contents
-1. [Design Documentation](#design-documentation)
-   - [Block Diagram](#block-diagram)
-   - [Circuit Diagram](#circuit-diagram)
-2. [Implementation](#implementation)
-   - [Hardware Setup](#hardware-setup)
-   - [Synthesis & Programming](#synthesis--programming)
-3. [Testing & Verification](#testing--verification)
-4. [Code Walkthrough](#code-walkthrough)
-5. [Results](#results)
-6. [Troubleshooting](#troubleshooting)
-7. [License](#license)
+1. [Design Documentation](#design-documentation)  
+   - [Block Diagram](#block-diagram)  
+   - [Circuit Diagram](#circuit-diagram)  
+2. [Implementation](#implementation)  
+   - [Hardware Setup](#hardware-setup)  
+   - [Synthesis & Programming](#synthesis--programming)  
+3. [Testing & Verification](#testing--verification)  
+4. [Code Walkthrough](#code-walkthrough)  
+5. [Results](#results)  
+6. [Troubleshooting](#troubleshooting)  
+7. [Future Enhancements](#future-enhancements)  
+8. [License](#license)  
 
 ---
 
@@ -31,96 +31,83 @@ UART is commonly used for low-speed serial communication between digital devices
 
 ### Block Diagram  
 ![Block Diagram](images/block_diagram.png)  
-The UART transmitter module consists of:  
-- **Baud Rate Generator**: Divides the system clock to generate the UART clock.  
-- **Finite State Machine (FSM)**: Manages transmission states (**IDLE, START, DATA, PARITY, STOP**).  
-- **Shift Register**: Shifts data bits serially onto the TX line.  
-- **Parity Generator**: Computes an optional parity bit for error detection.  
+The UART transmitter module consists of:
+- **Baud Rate Generator**: Divides the system clock to produce the UART clock.
+- **Finite State Machine (FSM)**: Manages transmission states (IDLE, START, DATA, PARITY, STOP).
+- **Shift Register**: Shifts data bits serially onto the TX line.
+- **Parity Generator**: Optional parity bit calculation (even/odd).
 
 ### Circuit Diagram  
 ![Circuit Diagram](images/circuit_diagram.png)  
-**FPGA UART Connections:**  
-| FPGA Pin | Peripheral | Description |
-|----------|------------|-------------|
-| TX       | USB-UART RX | Transmit Data |
-| GND      | USB-UART GND | Common Ground |
-
-For voltage level compatibility (3.3V/5V), use resistors or a level shifter.
+FPGA connections:
+- **FPGA TX Pin** → Connected to the RX pin of the receiving device (e.g., USB-UART converter).
+- **Voltage Level Matching**: Use resistors or a level shifter if interfacing with 3.3V/5V devices.
 
 ---
 
 ## Implementation
 
 ### Hardware Setup  
-#### **Requirements:**
-- **FPGA Board** (e.g., VSDSquadron, Xilinx, Intel)
-- **USB-UART Converter** (e.g., FTDI FT232RL)
-- **Jumper Wires and Resistors** (for level shifting if required)
+#### Requirements  
+- FPGA board (e.g., **VSDSquadron FPGA Mini**).  
+- USB-UART converter (e.g., **FTDI FT232RL**).  
+- Jumper wires and resistors (if voltage shifting is required).  
 
-#### **Connection Steps:**
-1. **Connect the FPGA TX pin** to the **USB-UART converter’s RX pin**.
-2. **Connect the GND** of the FPGA to the **GND of the converter**.
-3. Ensure proper **baud rate settings** to match the FPGA code.
+#### Steps  
+1. Connect the FPGA’s TX pin to the USB-UART converter’s RX pin.
+2. Connect ground (GND) between the FPGA and the converter.
 
 ### Synthesis & Programming  
-1. **Synthesize the Code:**
+1. **Synthesize Code**:
    ```bash
-   # Using Xilinx Vivado or Intel Quartus
+   # Using Xilinx Vivado/Intel Quartus  
    create_project uart_tx  
    add_files uart_tx.v  
    synthesize and generate bitstream  
    ```
-2. **Program the FPGA:**
-   - Upload the generated bitstream to the FPGA using OpenFPGALoader or vendor-specific tools.
+2. **Program FPGA**:
+   ```bash
+   # Upload the generated bitstream to the FPGA
+   make flash
+   ```
 
 ---
 
-## Testing & Verification  
+## Testing & Verification
 
-### **Serial Terminal Configuration**
-Use terminal software like **PuTTY**, **Tera Term**, or **screen** (Linux) to test the output.
-- **Baud Rate**: 9600
-- **Data Bits**: 8
-- **Stop Bits**: 1
-- **Parity**: None
+### 1. Connect FPGA to PC:
+Use the USB-UART converter to link the FPGA’s TX to the PC’s USB port.
 
-### **Transmit Data**
-- The FPGA should transmit predefined data (e.g., "Hello World").
-- Verify received data on the terminal.
+### 2. Serial Terminal Configuration:
+| Parameter | Value |
+|-----------|-------|
+| **Baud Rate** | 9600 |
+| **Data Bits** | 8 |
+| **Stop Bits** | 1 |
+| **Parity** | None |
 
-### **Expected Serial Terminal Output**
-```
-Sent: H
-Received: H
-Sent: e
-Received: e
-Sent: l
-Received: l
-Sent: l
-Received: l
-Sent: o
-Received: o
-```
+### 3. Transmit Data:
+The FPGA sends predefined data (e.g., "Hello World").
+Verify received data using a terminal (e.g., **PuTTY, Tera Term**).
 
 ---
 
-## Code Walkthrough  
+## Code Walkthrough
 
-### **Key Components of uart_tx.v**
-
-#### **Parameters**
+### Key Components of `uart_tx.v`:
+#### **Parameters**:
 ```verilog
-parameter CLK_FREQ = 100_000_000; // FPGA clock frequency (100 MHz)  
+parameter CLK_FREQ = 100_000_000; // FPGA clock frequency  
 parameter BAUD_RATE = 9600;  
 ```
 
-#### **State Machine**
+#### **State Machine**:
 ```verilog
-typedef enum {IDLE, START, DATA, PARITY, STOP} state_t;
-state_t current_state;
+typedef enum {IDLE, START, DATA, PARITY, STOP} state_t;  
+state_t current_state;  
 ```
 
-#### **Baud Rate Generator**
+#### **Baud Rate Counter**:
 ```verilog
 always @(posedge clk) begin  
   if (count == CLK_FREQ / BAUD_RATE - 1) begin  
@@ -133,51 +120,45 @@ always @(posedge clk) begin
 end  
 ```
 
-#### **Data Transmission FSM**
-```verilog
-always @(posedge clk) begin  
-  case(current_state)
-    IDLE: if (data_valid) current_state <= START;
-    START: if (baud_tick) current_state <= DATA;
-    DATA: if (bit_count == 8) current_state <= STOP;
-    STOP: if (baud_tick) current_state <= IDLE;
-  endcase
-end  
+---
+
+## Results
+
+### **Successful Transmission:**
+**Expected Serial Terminal Output:**
+```
+Sent: Hello World
+Received: Hello World
 ```
 
----
-
-## Results  
-The UART transmitter was successfully implemented and tested. Key observations:
-- **Stable data transmission** at 9600 baud.
-- **Verified loopback using a USB-UART converter**.
-- **No data loss or corruption observed**.
+### **Video Demo:**  
+[Watch UART Transmission](#)
 
 ---
 
-## Troubleshooting  
-
-| Issue              | Solution                                      |
-|-------------------|--------------------------------|
+## Troubleshooting
+| Issue | Solution |
+|--------|----------|
 | No data received | Check baud rate and TX/RX wiring |
-| Garbled output   | Verify clock synchronization |
-| Voltage mismatch | Use a level shifter or resistors |
-| Transmission delay | Optimize baud rate counter |
+| Garbled output | Verify clock synchronization |
+| Voltage mismatch | Add level shifter/resistors |
+| FPGA not programming | Check USB connection and try again |
 
 ---
 
-## License  
-This project is licensed under the **MIT License**. Feel free to modify and distribute it as needed.
+## Future Enhancements
+- **Add UART Receiver (`uart_rx`)** to implement full-duplex communication.
+- **Support Higher Baud Rates** for increased data transfer speed.
+- **Integrate Handshaking Signals** (RTS/CTS) for better control.
 
 ---
 
-## Additional Enhancements (Future Work)  
-- **Add configurable baud rate via registers**.
-- **Integrate UART receiver for full-duplex communication**.
-- **Implement flow control (RTS/CTS)** for improved reliability.
+## License
+This project is licensed under the **MIT License**. Feel free to modify and distribute!
 
 ---
 
-### **Contributions & Support**
-- If you encounter issues, open a GitHub issue.
-- PRs for improvements are welcome!
+## Contribute & Support
+- Submit issues and feature requests via GitHub.
+- Fork the repository and contribute improvements!
+
