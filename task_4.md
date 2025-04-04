@@ -186,18 +186,11 @@ endmodule
 ## Documentation
 
 1. **Block Diagram**:
-   - Located in the `docs/` folder as `block_diagram.png`.
+   ![Image](https://github.com/user-attachments/assets/b9fa5889-24d6-4e2f-a0ff-0b0780a70e84)
 
 2. **Circuit Diagram**:
-   - Located in the `docs/` folder as `circuit_diagram.png`.
+   ![Image](https://github.com/user-attachments/assets/070dcc98-1231-4877-86a7-2d2468dd8b57)
 
-3. **Detailed Report**:
-   - Includes design rationale, implementation details, and testing outcomes.
-   - Available as `report.pdf` in the `docs/` folder.
-
-4. **Video Demonstration**:
-   - Demonstrates the system in operation, showing sensor data transmission.
-   - [Watch the Video Demonstration](https://youtu.be/your-video-link)
 
 ---
 
