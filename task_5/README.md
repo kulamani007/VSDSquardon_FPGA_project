@@ -87,10 +87,10 @@ flowchart TB
 
 | Phase             | Tasks                              | Duration  | Status     |
 |------------------|-------------------------------------|-----------|------------|
-| Research          | Literature survey, component selection | 1 Week    | ✅ Completed |
-| Hardware Setup    | Sensor-FPGA integration            | 3 Days    | 🟡 Ongoing  |
-| FPGA Development  | Verilog coding, synthesis          | 2 Weeks   | 🔲 Pending  |
-| Validation        | UART data verification             | 4 Days    | 🔲 Pending  |
+| Research          | Literature survey, component selection | 1 Day    | ✅ Completed |
+| Hardware Setup    | Sensor-FPGA integration            | 3 Days    | ✅ Ongoing  |
+| FPGA Development  | Verilog coding, synthesis          | 2 Days   | ✅ Pending  |
+| Validation        | UART data verification             | 4 Days    | ✅ Pending  |
 
 ### 🗓️ Gantt Chart  
 
@@ -120,15 +120,17 @@ gantt
 
 ### 📐 Diagrams  
 - Block Diagram  
-- Circuit Schematic (To be added using Vivado Schematic View)  
+- Circuit Schematic
+- ![VSD_project -  D__xilinix vivado_VSD_project_VSD_project xpr  - Vivado 2023 2 09-04-2025 11_41_50 PM](https://github.com/user-attachments/assets/52b1e353-0940-44d1-a1d9-ba4b1b4a28f8)
+
 
 ### 📋 Detailed Plan  
 - Gantt Chart  
 - Timeline Milestones  
 
 **Milestones:**  
-- ⏳ *June 15, 2024*: Complete Verilog state machine  
-- ✅ *June 25, 2024*: First successful UART data transmission  
+- ⏳ *April 4, 2025*: Complete Verilog state machine  
+- ✅ *April 7, 2025*: First successful UART data transmission  
 
 ---
 
