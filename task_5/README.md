@@ -174,13 +174,11 @@ assert ser.read(4) == b'TEST'
 
 - [x] Literature Review Complete  
 - [x] Hardware Identified  
-- [ ] Verilog Design In Progress  
-- [ ] UART Verified with Loopback  
-- [ ] Sensor Data Integrated and Displayed
+- [x] Verilog Design In Progress  
+- [x] UART Verified with Loopback  
+- [x] Sensor Data Integrated and Displayed
 
 ---
 
 ## 👨‍💻 Authors  
-**Developed by:** *Your Name*  
-*Under the guidance of:* *Prof. ABC XYZ*  
-*Institution:* *XYZ University of Technology*
+**Developed by:** *Kulamani Rout*  
