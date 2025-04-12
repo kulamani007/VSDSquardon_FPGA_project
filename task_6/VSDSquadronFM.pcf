@@ -1,0 +1,7 @@
+# Sensor/UART Pins
+set_io SDA       9   # BME280 SDA
+set_io SCL       10  # BME280 SCL
+set_io UART_TX   4   # CP2102 RX
+
+# Clock
+set_io hw_clk    20  # 12MHz oscillator
